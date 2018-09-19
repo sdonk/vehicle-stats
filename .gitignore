@@ -273,3 +273,4 @@ vehicle_stats/media/
 .env
 .envs/*
 !.envs/.local/
+.idea/*
