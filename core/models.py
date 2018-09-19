@@ -12,7 +12,7 @@ class Vehicle(TimeStampedModel):
     year_manufactured = models.PositiveSmallIntegerField()
     cost_of_purchase = MoneyField(max_digits=10, decimal_places=2, default_currency='GBP')
     purchased_on = models.DateField(default=datetime.utcnow)
-    miles = models.PositiveSmallIntegerField(default=0)
+    initial_miles = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
         return self.name
