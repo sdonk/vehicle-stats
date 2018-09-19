@@ -61,7 +61,7 @@ class Fuel(TimeStampedModel):
     date = models.DateField(default=datetime.utcnow)
     cost = MoneyField(max_digits=10, decimal_places=2, default_currency='GBP')
     miles = models.FloatField(blank=True, null=True)
-    litres = models.FloatField()
+    litres = models.FloatField(blank=True, null=True)
     price_per_litre = MoneyField(
         max_digits=10,
         decimal_places=2,

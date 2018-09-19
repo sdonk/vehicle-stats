@@ -1,0 +1,37 @@
+{% extends 'admin/change_form.html' %}
+{% load admin_urlname from admin_urls %}
+{% load djmoney %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">Home</a>
+&rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+&rsaquo; {% if has_view_permission %}<a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %}
+&rsaquo; {% if add %}Add {{ opts.verbose_name }}{% else %}{{ original|truncatewords:"18" }}{% endif %}
+</div>
+{% endblock %}
+
+{% block content %}
+	<table style="width:100%">
+  </tr>
+  <tr>
+    <td>Purchase</td>
+    <td>{% money_localize data.purchase %}</td>
+  </tr>
+  <tr>
+    <td>Fuel</td>
+    <td>{% money_localize data.fuel.amount data.fuel.currency %}</td>
+  </tr>
+  <tr>
+    <td>Services</td>
+    <td>{% money_localize data.services.amount data.services.currency %}</td>
+  </tr>
+  <tr>
+    <td>Purchases</td>
+    <td>{% money_localize data.purchases.amount data.purchases.currency%}</td>
+  </tr>
+  <tr>
+    <td>Total</td>
+    <td>{% money_localize data.total.amount data.total.currency%}</td>
+  </tr>
+</table>
+{% endblock %}

@@ -202,3 +202,11 @@ MANAGERS = ADMINS
 # https://django-grappelli.readthedocs.io/en/latest/customization.html
 
 GRAPPELLI_ADMIN_TITLE = 'Vehicle stats'
+
+
+# MONEY
+# ------------------------------------------------------------------------------
+# https://github.com/django-money/django-money
+
+CURRENCIES = ('GBP',)
+CURRENCY_CHOICES = [('GBP', '£')]
