@@ -24,7 +24,7 @@ class Service(TimeStampedModel):
         'Annual service',
         'Insurance',
         'Road tax',
-        'Road assistance'
+        'Road assistance',
         'Other')
 
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
