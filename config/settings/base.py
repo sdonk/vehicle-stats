@@ -63,19 +63,13 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'grappelli',
     'django.contrib.admin',  # needs to be here
+    'djmoney',
 ]
 LOCAL_APPS = [
-    'vehicle_stats.core.apps.CoreAppConfig',
+    'core',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
-
-# MIGRATIONS
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
-MIGRATION_MODULES = {
-    'sites': 'vehicle_stats.contrib.sites.migrations'
-}
 
 # AUTHENTICATION
 # ------------------------------------------------------------------------------
@@ -203,3 +197,8 @@ ADMINS = []
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 
+# GRAPPELLI
+# ------------------------------------------------------------------------------
+# https://django-grappelli.readthedocs.io/en/latest/customization.html
+
+GRAPPELLI_ADMIN_TITLE = 'Vehicle stats'
