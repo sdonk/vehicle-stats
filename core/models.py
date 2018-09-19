@@ -9,9 +9,10 @@ from model_utils.models import TimeStampedModel
 class Vehicle(TimeStampedModel):
     name = models.CharField(max_length=24)
     registration = models.CharField(max_length=8)
-    year_manufactured = models.IntegerField()
+    year_manufactured = models.PositiveSmallIntegerField()
     cost_of_purchase = MoneyField(max_digits=10, decimal_places=2, default_currency='GBP')
     purchased_on = models.DateField(default=datetime.utcnow)
+    miles = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -31,7 +32,7 @@ class Service(TimeStampedModel):
         choices=TYPES,
         max_length=50
     )
-    miles = models.IntegerField()
+    miles = models.PositiveSmallIntegerField()
     date = models.DateField(default=datetime.utcnow)
     cost = MoneyField(max_digits=10, decimal_places=2, default_currency='GBP')
     comment = models.TextField(blank=True)
