@@ -209,4 +209,4 @@ GRAPPELLI_ADMIN_TITLE = 'Vehicle stats'
 # https://github.com/django-money/django-money
 
 CURRENCIES = ('GBP',)
-CURRENCY_CHOICES = [('GBP', '£')]
+CURRENCY_CHOICES = [('GBP', 'GBP £')]

@@ -1,5 +1,2 @@
 [run]
-include = vehicle_stats/*
-omit = *migrations*, *tests*
-plugins =
-    django_coverage_plugin
+omit = *migrations*, *tests*, *config*, manage.py, *staticfiles*, conftest.py, *apps.py

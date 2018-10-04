@@ -16,7 +16,7 @@ def get_vehicle_costs(vehicle_pk):
         total_fuel_cost=Coalesce(Sum('fuel__cost'), Value(0)),
         total_services_cost=Coalesce(Sum('service__cost'), Value(0)),
         total_purchases_cost=Coalesce(Sum('purchase__cost'), Value(0))
-    )[0]
+    )
     return {
         'purchase': vehicle.cost_of_purchase,
         'fuel': Money(vehicle.total_fuel_cost, GBP),

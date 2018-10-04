@@ -8,7 +8,7 @@ from model_utils.models import TimeStampedModel
 
 class Vehicle(TimeStampedModel):
     name = models.CharField(max_length=24)
-    registration = models.CharField(max_length=8)
+    registration = models.CharField(max_length=8, unique=True)
     year_manufactured = models.PositiveSmallIntegerField()
     cost_of_purchase = MoneyField(max_digits=10, decimal_places=2, default_currency='GBP')
     purchased_on = models.DateField(default=datetime.utcnow)
@@ -60,11 +60,11 @@ class Purchase(TimeStampedModel):
 class Fuel(TimeStampedModel):
     date = models.DateField(default=datetime.utcnow)
     cost = MoneyField(max_digits=10, decimal_places=2, default_currency='GBP')
-    miles = models.FloatField(blank=True, null=True)
+    miles = models.PositiveSmallIntegerField(blank=True, null=True)
     litres = models.FloatField(blank=True, null=True)
     price_per_litre = MoneyField(
         max_digits=10,
-        decimal_places=2,
+        decimal_places=3,
         default_currency='GBP',
         blank=True,
         null=True
@@ -77,6 +77,15 @@ class Fuel(TimeStampedModel):
 
     def __str__(self):
         return self.vehicle.name
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        if self.litres and not self.price_per_litre:
+            self.price_per_litre = round(self.cost/self.litres, 3)
+        if self.price_per_litre and not self.litres:
+            self.litres = round(self.cost/self.price_per_litre, 2)
+        return super().save(force_insert=False, force_update=False, using=None,
+                            update_fields=None)
 
 
 class Mileage(TimeStampedModel):
