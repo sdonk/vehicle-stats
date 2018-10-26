@@ -112,3 +112,6 @@ class Mileage(TimeStampedModel):
     class Meta:
         ordering = ['-date']
         verbose_name_plural = 'Mileage'
+
+    def __str__(self):
+        return self.miles
