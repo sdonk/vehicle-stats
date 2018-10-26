@@ -19,5 +19,7 @@ manage:
 test:
 	docker-compose run django pytest --cov=. --capture=no --cov-config=.coveragerc -s -vv $(pytest_args)
 
+clean:
+	find . -name '*.pyc' -delete
 
-.PHONY: webserver, build, shell, migrate, makemigrations, manage, test
+.PHONY: webserver, build, shell, migrate, makemigrations, manage, test, clean

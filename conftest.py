@@ -6,6 +6,7 @@ from django.test import RequestFactory
 def media_storage(settings, tmpdir):
     settings.MEDIA_ROOT = tmpdir.strpath
 
+
 @pytest.fixture
 def request_factory() -> RequestFactory:
     return RequestFactory()

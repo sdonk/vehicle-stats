@@ -4,7 +4,6 @@ from django.urls import reverse
 from django.utils.html import format_html
 from django.views.generic import TemplateView
 
-from core.utils import get_vehicle_costs
 from . import models
 
 
@@ -12,7 +11,7 @@ class VehicleTotalCostView(TemplateView):
     template_name = 'core/vehicle-total-cost.html'
 
     def get_context_data(self, **kwargs):
-        costs = get_vehicle_costs(vehicle_pk=self.kwargs['pk'])
+        costs = {}
         return super(VehicleTotalCostView, self).get_context_data(
             data=costs,
             opts=models.Vehicle._meta,
@@ -54,7 +53,7 @@ class VehicleAdmin(admin.ModelAdmin):
 
 @admin.register(models.Fuel)
 class FuelAdmin(admin.ModelAdmin):
-    list_display = ('vehicle', 'date',)
+    list_display = ('vehicle', 'date', 'cost', 'price_per_litre', 'litres')
     list_filter = ('vehicle', )
 
 
@@ -64,7 +63,6 @@ class ServiceAdmin(admin.ModelAdmin):
         'date',
         'vehicle',
         'type_of_service',
-        'miles',
         'cost'
     )
     list_filter = (
@@ -75,8 +73,7 @@ class ServiceAdmin(admin.ModelAdmin):
 
 @admin.register(models.Mileage)
 class MileageAdmin(admin.ModelAdmin):
-    list_display = ('vehicle', 'date', 'miles')
-    list_filter = ('vehicle', )
+    list_display = ('date', 'miles')
 
 
 @admin.register(models.Purchase)

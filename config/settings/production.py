@@ -1,6 +1,6 @@
 import logging
 
-from .base import *  # noqa
+from .base import *  # NOQA
 from .base import env
 
 # GENERAL
@@ -88,8 +88,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # raven
 # ------------------------------------------------------------------------------
 # https://docs.sentry.io/clients/python/integrations/django/
-INSTALLED_APPS += ['raven.contrib.django.raven_compat']  # noqa F405
-MIDDLEWARE = ['raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware'] + MIDDLEWARE
+INSTALLED_APPS += ['raven.contrib.django.raven_compat']  # NOQA F405
+MIDDLEWARE = ['raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware'] + MIDDLEWARE   # NOQA F405
 
 # Sentry
 # ------------------------------------------------------------------------------
@@ -147,5 +147,3 @@ SENTRY_CELERY_LOGLEVEL = env.int('DJANGO_SENTRY_LOG_LEVEL', logging.INFO)
 RAVEN_CONFIG = {
     'dsn': SENTRY_DSN
 }
-# Your stuff...
-# ------------------------------------------------------------------------------

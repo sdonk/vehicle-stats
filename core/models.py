@@ -5,6 +5,8 @@ from djmoney.models.fields import MoneyField
 from model_utils import Choices
 from model_utils.models import TimeStampedModel
 
+from core.managers import MileageManager
+
 
 class Vehicle(TimeStampedModel):
     name = models.CharField(max_length=24)
@@ -12,7 +14,11 @@ class Vehicle(TimeStampedModel):
     year_manufactured = models.PositiveSmallIntegerField()
     cost_of_purchase = MoneyField(max_digits=10, decimal_places=2, default_currency='GBP')
     purchased_on = models.DateField(default=datetime.utcnow)
-    initial_miles = models.PositiveSmallIntegerField(default=0)
+    mileage = models.ForeignKey(
+        'core.Mileage',
+        related_name='vehicles',
+        on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return self.name
@@ -32,7 +38,11 @@ class Service(TimeStampedModel):
         choices=TYPES,
         max_length=50
     )
-    miles = models.PositiveSmallIntegerField()
+    mileage = models.ForeignKey(
+        'core.Mileage',
+        related_name='services',
+        on_delete=models.CASCADE
+    )
     date = models.DateField(default=datetime.utcnow)
     cost = MoneyField(max_digits=10, decimal_places=2, default_currency='GBP')
     comment = models.TextField(blank=True)
@@ -41,7 +51,7 @@ class Service(TimeStampedModel):
         ordering = ['-date']
 
     def __str__(self):
-        return self.type_of_service
+        return self.type_of_service[0]
 
 
 class Purchase(TimeStampedModel):
@@ -60,7 +70,13 @@ class Purchase(TimeStampedModel):
 class Fuel(TimeStampedModel):
     date = models.DateField(default=datetime.utcnow)
     cost = MoneyField(max_digits=10, decimal_places=2, default_currency='GBP')
-    miles = models.PositiveSmallIntegerField(blank=True, null=True)
+    mileage = models.ForeignKey(
+        'core.Mileage',
+        related_name='fuel',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL
+    )
     litres = models.FloatField(blank=True, null=True)
     price_per_litre = MoneyField(
         max_digits=10,
@@ -90,13 +106,9 @@ class Fuel(TimeStampedModel):
 
 class Mileage(TimeStampedModel):
     date = models.DateField(default=datetime.utcnow)
-    miles = models.FloatField(blank=True, null=True)
-    comment = models.TextField(blank=True)
-    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    miles = models.PositiveSmallIntegerField()
+    objects = MileageManager()
 
     class Meta:
         ordering = ['-date']
         verbose_name_plural = 'Mileage'
-
-    def __str__(self):
-        return self.miles
